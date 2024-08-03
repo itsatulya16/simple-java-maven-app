@@ -1,24 +1,24 @@
 pipeline {
     agent any
     environment {
-            MAVEN_HOME = 'C:\\Users\\Lenovo\\Downloads\\apache-maven-3.9.6-bin\\apache-maven-3.9.6' // Adjust the path as needed
-            PATH = "${env.PATH};${env.MAVEN_HOME}\\bin"
-        }
+        MAVEN_HOME = 'C:\\Users\\Lenovo\\Downloads\\apache-maven-3.9.6-bin\\apache-maven-3.9.6' // Adjust the path as needed
+        PATH = "${env.PATH};${env.MAVEN_HOME}\\bin"
+    }
     stages {
         stage('Build') {
             steps {
                 bat 'mvn -B -DskipTests clean package'
             }
         }
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
     }
-    stage('Test') {
-                steps {
-                    sh 'mvn test'
-                }
-                post {
-                    always {
-                        junit 'target/surefire-reports/*.xml'
-                    }
-                }
-           }
 }
