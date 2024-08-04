@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    environment {
-        MAVEN_HOME = 'C:\\Users\\Lenovo\\Downloads\\apache-maven-3.9.6-bin\\apache-maven-3.9.6' // Adjust the path as needed
-        PATH = "${env.PATH};${env.MAVEN_HOME}\\bin"
-    }
+    tools {
+           jdk "jdk"
+           maven "3.9.6"
+       }
     stages {
         stage('Build') {
             steps {
